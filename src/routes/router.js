@@ -11,7 +11,8 @@ routes.get('/', (req, res) => {
 
 //LOGIN....
 routes.get('/login', LoginController.getLogin);
-routes.post('/login', LoginController.postCreateLogin);
+routes.post('/login/create', LoginController.postCreateLogin);
+routes.post('/login', LoginController.postLogin);
 
 
 

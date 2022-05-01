@@ -65,5 +65,38 @@ module.exports = {
         }catch(error){
             return res.status(500).json({error: error});
         }
+    },
+
+    async postLogin(req, res){
+        const {id, password, email} = req.body;
+        try{
+
+            if(!id && !email){
+                return res.status(400).json({error: `id ou email é obrigatório`});
+            }
+            if(!password){
+                return res.status(400).json({error: `'password' é obrigatório`});
+            }
+            
+            const userFind = await Login.findOne({
+                where: {
+                    [Op.or]: [
+                       {email: email},
+                       {userid: id}
+                    ],
+                    [Op.and]:[{password: password}]
+                 }
+            });
+
+            if(!userFind){
+                return res.status(404).json({error: `usuário ou senha incorreta.`});
+            }
+
+            return res.json(userFind);
+
+
+        }catch(error){
+            return res.status(500).json({error: error});
+        }
     }
 }
