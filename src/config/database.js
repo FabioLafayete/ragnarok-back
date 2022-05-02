@@ -14,13 +14,13 @@ module.exports = {
         timestamps: true,
         underscored: true
     },
-    // dialectOptions: {
-    //     ssl: {
-    //       key: cKey,
-    //       cert: cCert,
-    //       ca: cCA
-    //     }
-    //   }
+    dialectOptions: {
+        ssl: {
+          key: cKey,
+          cert: cCert,
+          ca: cCA
+        }
+      }
     
 };
  
