@@ -1,6 +1,7 @@
 const Login = require('../models/Login');
 const { Op } = require("sequelize");
-
+const emailservice = require('../service/email_service');
+const html = require('../config/html/cadastro-html')
 
 module.exports = {
     async getLogin (req, res) {
@@ -59,7 +60,14 @@ module.exports = {
                     group_id,
                 });
 
-            return res.status(201).json({user});
+            if(user){
+                emailservice.send(email, html).then((value) => {
+                    console.log('email enviado');
+                });
+                return res.status(201).json({user});
+            } else {
+                return res.status(500).json({error: 'Erro ao criar usuário'});
+            }
 
 
         }catch(error){
