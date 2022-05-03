@@ -4,18 +4,9 @@ const emailservice = require('../service/email_service');
 const html = require('../config/html/cadastro-html')
 
 module.exports = {
-    async getLogin (req, res) {
-        try{
-            const login = await Login.findAll();
-            return res.json(login);
-        }catch(error){
-            return res.status(500).json({error: error});
-        }
-    },
-
     async postCreateLogin (req, res) {
 
-        const {id, password, email, sex, group_id} = req.body;
+        const {id, password, email, sex} = req.body;
 
         try{
 
@@ -57,7 +48,6 @@ module.exports = {
                     user_pass: password, 
                     email, 
                     sex: sex.toUpperCase(), 
-                    group_id,
                 });
 
             if(user){
