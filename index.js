@@ -6,6 +6,10 @@ require('./src/database/index');
 
 const app = express();
 
+app.use(express.json());
+
+app.use(routes);
+
 // Certificate
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/perfectrobrasil.com.br/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/perfectrobrasil.com.br/cert.pem', 'utf8');
@@ -18,10 +22,6 @@ const credentials = {
 };
 
 const httpsServer = https.createServer(credentials, app);
-
-httpsServer.use(express.json());
-
-httpsServer.use(routes);
 
 const port = process.env.PORT || 3333;
 
