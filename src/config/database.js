@@ -1,7 +1,4 @@
-const fs = require('fs');
-const cKey = fs.readFileSync(__dirname + '/client-key.pem');
-const cCert = fs.readFileSync(__dirname + '/client-cert.pem');
-const cCA = fs.readFileSync(__dirname + '/server-ca.pem');
+// const cert = require('../../cert/export')
 
 module.exports = {
     dialect: 'mysql',
@@ -14,13 +11,13 @@ module.exports = {
         timestamps: true,
         underscored: true
     },
-    dialectOptions: {
-        ssl: {
-          key: cKey,
-          cert: cCert,
-          ca: cCA
-        }
-      }
+    // dialectOptions: {
+    //     ssl: {
+    //       key: cert.cKey,
+    //       cert: cert.cCert,
+    //       ca: cert.cCA
+    //     }
+    //   }
     
 };
  
