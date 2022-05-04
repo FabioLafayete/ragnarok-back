@@ -6,7 +6,7 @@ const html = require('../config/html/cadastro-html')
 module.exports = {
     async postCreateLogin (req, res) {
 
-        const {id, password, email, sex} = req.body;
+        const {id, password, email, sex, cellphone} = req.body;
 
         try{
 
@@ -29,7 +29,8 @@ module.exports = {
                 where: {
                     [Op.or]: [
                        {email: email},
-                       {userid: id} 
+                       {userid: id} ,
+                       {cellphone: cellphone}
                     ]
                  }
             });
@@ -37,8 +38,10 @@ module.exports = {
             if(userFind){
                 if(userFind.userid != id && userFind.email == email){
                     return res.status(400).json({error: "Email ja cadastrado na base."});
+                } else if(userFind.userid != id && userFind.email != email && userFind.cellphone == cellphone){
+                    return res.status(400).json({error: "Celular já cadastrado na base"});
                 } else {
-                    return res.status(400).json({error: "Id já cadastrado"});
+                    return res.status(400).json({error: "Id já cadastrado na base"});
                 }
             }
 
@@ -48,6 +51,7 @@ module.exports = {
                     user_pass: password, 
                     email, 
                     sex: sex.toUpperCase(), 
+                    cellphone
                 });
 
             if(user){

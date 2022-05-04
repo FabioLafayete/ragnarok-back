@@ -90,6 +90,7 @@ class Login extends Model {
                 allowNull: false,
                 defaultValue: 0
             },
+            cellphone: DataTypes.STRING(20)
         },
         {
             sequelize: connection,
